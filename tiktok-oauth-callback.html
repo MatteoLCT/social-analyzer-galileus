@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok OAuth callback — Social Analyzer Galileus GPT</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; max-width: 720px;
+         margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #111; }
+  code, pre { background: #f4f4f5; padding: .2rem .4rem; border-radius: 4px; }
+  pre { padding: 1rem; overflow-x: auto; word-break: break-all; white-space: pre-wrap; }
+  .ok { color: #067647; }
+  .err { color: #b42318; }
+</style>
+</head>
+<body>
+  <h1>TikTok authorization callback</h1>
+  <p>Internal redirect for <strong>Social Analyzer Galileus GPT</strong>. Copy the <code>code</code> below into the demo CLI.</p>
+  <div id="out">Reading URL…</div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const error = params.get("error");
+    const el = document.getElementById("out");
+    if (error) {
+      el.innerHTML = `<p class="err">Error: ${error}<br>${params.get("error_description") || ""}</p>`;
+    } else if (code) {
+      el.innerHTML = `<p class="ok">Authorization code received.</p>
+        <p>Copy this code:</p>
+        <pre id="code">${code}</pre>
+        <p>Then run:<br><code>python scripts/tiktok_oauth_demo.py exchange --code '…'</code></p>`;
+    } else {
+      el.innerHTML = `<p class="err">No <code>code</code> in the URL. Complete TikTok Login Kit authorize first.</p>`;
+    }
+  </script>
+</body>
+</html>
